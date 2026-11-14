@@ -3,4 +3,37 @@
 body{background:#fff8ee;color:#35305c}.mast{background:#fff8ee}.brand{color:#7250ad}.brand span{color:#ff8f8a;font-size:25px}.nav-main{border:2px solid #a992d1;border-radius:16px;background:#f3eaff}.hero{background:#e9ddff;color:#35305c;border-radius:0 0 48px 48px}.hero h1 em,.hero .eyebrow{color:#d75c78}.hero-copy>p:not(.eyebrow){color:#5b5875}.hero img{border:7px solid white;border-radius:36px;box-shadow:0 12px 0 #cdb9eb}.hero figcaption{color:#735999}.eyebrow{color:#e26984}.btn{background:#ffbd87;border:2px solid #dd946c;border-radius:18px;box-shadow:0 4px 0 #dd946c;color:#41325b}.secondary{background:#9270cb;color:white;border-color:#7655ad;box-shadow:0 4px 0 #7655ad}.section{border-color:#e9dbed}.quiz-section{background:#fff8ee}.question{border-top:0;background:#fff;margin:14px 0;padding:22px;border:2px solid #ece0f2;border-radius:22px;box-shadow:0 4px 0 #eaddea}.choice{border:2px solid #e9dff1;border-radius:14px;background:#fbf8ff}.choice:has(input:checked){background:#e7d7ff;border-color:#9870cf}.lesson-list{border-top:2px dashed #d7c5df}.lesson{border-bottom:2px dashed #d7c5df}.lesson small{color:#d96380}.resource-layout>img{border-radius:28px;border:6px solid white;box-shadow:0 5px 0 #e8d7dc}.resource{border-bottom:2px dotted #dacbdc}.report{background:#fff0ec;border-radius:46px 46px 0 0}.save-note{background:#efe3ff;border-left:5px solid #a983d2;border-radius:12px}.report fieldset{border-color:#e7cfda}.report legend{color:#654e88}.activity{border-color:#ead4dc}.activity input[type=checkbox]{accent-color:#a565ba}.activity-body{background:#fff9f5;border-radius:18px;margin:12px 0;padding:14px 20px}.activity-body details{margin-bottom:12px}input[type=text],textarea{border:2px solid #dbc9df;border-radius:14px}details{color:#8252a1}footer{background:#fff0ec}.preview img{border:3px solid white;box-shadow:0 3px 0 #e2cfdd}.image-wrap img{border-radius:12px}.report-actions .btn{font-size:15px}@media(max-width:720px){.hero{border-radius:0 0 30px 30px}.hero img{height:250px}.report{border-radius:30px 30px 0 0}}
 
 @media print{body,.report,.activity-body{background:white!important}.report{padding:0!important}.activity-body{margin:0;padding:0!important}textarea,input[type=text]{border:0!important;padding:3px 0!important}.preview img{box-shadow:none}}
+/* Classroom navigation, feedback, and smaller-screen layout. */
+.mast{max-width:none;padding-left:max(32px,calc((100vw - 1228px)/2));padding-right:max(32px,calc((100vw - 1228px)/2));position:sticky;top:0;z-index:4;box-shadow:0 3px 0 rgba(114,80,173,.08)}
+.brand{white-space:nowrap;display:flex;align-items:center;gap:8px}
+.brand span{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:14px;background:#ffe7df}
+nav a:not(.nav-main){padding:10px 2px;border-bottom:2px solid transparent}
+nav a:not(.nav-main):hover{border-color:#a992d1}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #7052bd;outline-offset:3px}
+.hero{position:relative;overflow:hidden}
+.hero figure{transform:rotate(1deg)}
+.hero img{height:360px}
+.section{scroll-margin-top:78px}
+.quiz-intro{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:10px 0 18px;color:#75599a;font-weight:700;font-size:13px}
+.quiz-intro span{background:#f0e5ff;padding:10px 14px;border-radius:14px}
+#quiz{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.question{margin:0;padding:23px;display:flex;flex-direction:column}
+.question h3{color:#403461;margin:0 0 15px}
+.choices{display:grid;gap:8px}
+.choice{display:flex;align-items:flex-start;gap:8px;margin:0;padding:11px 13px}
+.choice input{margin-top:4px;flex:none}
+.question.checked{border-color:#baa0d8}
+.question .explanation{background:#f4eaff;border-radius:12px;padding:12px;color:#5b4774}
+.lesson{transition:background .15s,transform .15s}
+.lesson:hover{background:#fff;transform:translateX(4px)}
+.resource{border-radius:10px;padding:14px 8px}
+.resource:hover{background:#f2e9fb}
+.save-note{display:flex;flex-direction:column;gap:5px}
+.activity>label{padding:12px;background:#fffaf9;border-radius:14px;border:1px solid #efdbe6}
+.activity-body textarea{min-height:125px}
+textarea::placeholder,input::placeholder{color:#847f92}
+textarea:focus,input[type=text]:focus{border-color:#946cbd}
+.report-actions{padding-top:5px}
+@media(max-width:720px){.mast{padding:12px 18px}.brand{font-size:12px}.brand span{width:30px;height:30px}nav{gap:6px 12px}.hero figure{transform:none}.hero img{height:240px}#quiz{grid-template-columns:1fr}.quiz-intro{font-size:12px}.question{padding:19px}.section{scroll-margin-top:100px}}
+@media print{.quiz-intro{display:none}.mast{position:static}.activity>label{border:0;padding:0;background:none}}
 
