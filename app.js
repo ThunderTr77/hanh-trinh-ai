@@ -40,6 +40,20 @@ dbOpen.onsuccess=()=>{db=dbOpen.result;renderImages()};
 dbOpen.onerror=()=>{status.textContent='Trình duyệt không lưu được ảnh. Em vẫn có thể viết báo cáo.'};
 function addImages(activity,files){if(!db){status.textContent='Chưa thể lưu ảnh. Hãy thử lại.';return}const valid=Array.from(files).filter(file=>file.type.startsWith('image/'));if(valid.length!==files.length)status.textContent='Chỉ chọn các tệp ảnh.';const tx=db.transaction('photos','readwrite');valid.forEach(file=>tx.objectStore('photos').add({activity,file}));tx.oncomplete=()=>{status.textContent='Đã lưu ảnh trên trình duyệt này.';renderImages()};tx.onerror=()=>{status.textContent='Không lưu được ảnh. Hãy thử ảnh nhỏ hơn.'}}
 function renderImages(){if(!db)return;const req=db.transaction('photos').objectStore('photos').getAll();req.onsuccess=()=>{document.querySelectorAll('.preview').forEach(node=>node.replaceChildren());req.result.forEach(photo=>{const target=document.querySelector(`.activity[data-id="${photo.activity}"] .preview`);if(!target)return;const wrap=document.createElement('div');wrap.className='image-wrap';const image=document.createElement('img');image.src=URL.createObjectURL(photo.file);image.alt='Ảnh minh họa hoạt động';image.onload=()=>URL.revokeObjectURL(image.src);const remove=document.createElement('button');remove.type='button';remove.className='remove';remove.textContent='Xóa ảnh';remove.addEventListener('click',()=>{const tx=db.transaction('photos','readwrite');tx.objectStore('photos').delete(photo.id);tx.oncomplete=renderImages});wrap.append(image,remove);target.append(wrap)})}}
-document.querySelector('#print').addEventListener('click',()=>{document.querySelectorAll('textarea').forEach(el=>{el.style.height='auto';el.style.height=el.scrollHeight+'px'});window.print()});
+document.querySelector('#print').addEventListener('click',()=>{
+  const student=document.querySelector('#student');
+  const className=document.querySelector('#className');
+  if(!student.value.trim() || !className.value.trim()){
+    status.textContent='Em hãy điền họ tên và lớp trước khi lưu báo cáo.';
+    (student.value.trim()?className:student).focus();
+    return;
+  }
+  document.querySelectorAll('textarea').forEach(el=>{el.style.height='auto';el.style.height=el.scrollHeight+'px'});
+  const filenamePart=value=>value.trim().replace(/[\\/:*?"<>|]/g,'-').replace(/\s+/g,' ');
+  const originalTitle=document.title;
+  document.title=`${filenamePart(className.value)} - ${filenamePart(student.value)}`;
+  window.addEventListener('afterprint',()=>{document.title=originalTitle},{once:true});
+  window.print();
+});
 document.querySelector('#reset').addEventListener('click',()=>{if(!confirm('Xóa nội dung và ảnh của bài hiện tại để bắt đầu bài mới?'))return;form.reset();form.querySelectorAll('.activity-body').forEach(el=>el.hidden=true);localStorage.removeItem(storageKey);if(db){const tx=db.transaction('photos','readwrite');tx.objectStore('photos').clear();tx.oncomplete=renderImages}status.textContent='Đã bắt đầu bài mới.'});
 
